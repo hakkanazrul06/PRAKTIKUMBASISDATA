@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 28, 2025 at 05:33 AM
+-- Generation Time: Mar 12, 2025 at 02:55 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -17,6 +17,121 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
+--
+-- Database: `databasesiswa`
+--
+CREATE DATABASE IF NOT EXISTS `databasesiswa` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `databasesiswa`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `data_mahasiswa`
+--
+
+CREATE TABLE `data_mahasiswa` (
+  `npm` char(10) NOT NULL,
+  `nama` varchar(40) NOT NULL,
+  `jurusan` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `data_mahasiswa`
+--
+
+INSERT INTO `data_mahasiswa` (`npm`, `nama`, `jurusan`) VALUES
+('2000000001', 'Rama', 'Teknologi Informasi'),
+('2000000002', 'Asay', 'Teknologi Informasi'),
+('2000000003', 'Rosyid', 'Teknologi Informasi');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mata_kuliah`
+--
+
+CREATE TABLE `mata_kuliah` (
+  `kode_matkul` char(5) NOT NULL,
+  `nama` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `mata_kuliah`
+--
+
+INSERT INTO `mata_kuliah` (`kode_matkul`, `nama`) VALUES
+('FT001', 'Kalkulus Dasar'),
+('FT002', 'Fisika Dasar'),
+('FT003', 'Kimia Dasar');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `nilai_mahasiswa`
+--
+
+CREATE TABLE `nilai_mahasiswa` (
+  `id` int(11) NOT NULL,
+  `npm` char(10) DEFAULT NULL,
+  `kode_matkul` char(5) DEFAULT NULL,
+  `nilai` decimal(5,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `nilai_mahasiswa`
+--
+
+INSERT INTO `nilai_mahasiswa` (`id`, `npm`, `kode_matkul`, `nilai`) VALUES
+(1, '2000000001', 'FT002', 34.00),
+(2, '2000000001', 'FT003', 64.00),
+(3, '2000000002', 'FT001', 43.00),
+(4, '2000000002', 'FT003', 90.00),
+(5, '2000000003', 'FT001', 41.00);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `data_mahasiswa`
+--
+ALTER TABLE `data_mahasiswa`
+  ADD PRIMARY KEY (`npm`);
+
+--
+-- Indexes for table `mata_kuliah`
+--
+ALTER TABLE `mata_kuliah`
+  ADD PRIMARY KEY (`kode_matkul`);
+
+--
+-- Indexes for table `nilai_mahasiswa`
+--
+ALTER TABLE `nilai_mahasiswa`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `npm` (`npm`),
+  ADD KEY `kode_matkul` (`kode_matkul`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `nilai_mahasiswa`
+--
+ALTER TABLE `nilai_mahasiswa`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `nilai_mahasiswa`
+--
+ALTER TABLE `nilai_mahasiswa`
+  ADD CONSTRAINT `nilai_mahasiswa_ibfk_1` FOREIGN KEY (`npm`) REFERENCES `data_mahasiswa` (`npm`),
+  ADD CONSTRAINT `nilai_mahasiswa_ibfk_2` FOREIGN KEY (`kode_matkul`) REFERENCES `mata_kuliah` (`kode_matkul`);
 --
 -- Database: `database_dosen`
 --
@@ -404,7 +519,7 @@ CREATE TABLE `pma__userconfig` (
 --
 
 INSERT INTO `pma__userconfig` (`username`, `timevalue`, `config_data`) VALUES
-('root', '2025-02-28 04:31:49', '{\"Console\\/Mode\":\"collapse\"}');
+('root', '2025-03-12 13:50:53', '{\"Console\\/Mode\":\"collapse\"}');
 
 -- --------------------------------------------------------
 
@@ -597,6 +712,65 @@ ALTER TABLE `pma__savedsearches`
 --
 CREATE DATABASE IF NOT EXISTS `test` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `test`;
+--
+-- Database: `toko_indomart`
+--
+CREATE DATABASE IF NOT EXISTS `toko_indomart` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `toko_indomart`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `products`
+--
+
+CREATE TABLE `products` (
+  `product_id` int(11) NOT NULL,
+  `product_name` varchar(100) DEFAULT NULL,
+  `category` varchar(50) DEFAULT NULL,
+  `price` decimal(10,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`product_id`, `product_name`, `category`, `price`) VALUES
+(1, 'Laptop A', 'Electronics', 1200.00),
+(2, 'Smartphone B', 'Electronics', 800.00),
+(3, 'Tablet C', 'Electronics', 500.00),
+(4, 'Shirt D', 'Clothing', 25.00),
+(5, 'Jeans E', 'Clothing', 45.00),
+(6, 'Shoes F', 'Clothing', 60.00),
+(7, 'Book G', 'Books', 15.00),
+(8, 'Notebook H', 'Books', 10.00),
+(9, 'Pen I', 'Stationery', 2.00),
+(10, 'Pencil J', 'Stationery', 1.50);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`product_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `products`
+--
+ALTER TABLE `products`
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+--
+-- Database: `tugas4`
+--
+CREATE DATABASE IF NOT EXISTS `tugas4` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `tugas4`;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
